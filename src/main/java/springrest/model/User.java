@@ -13,9 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -29,7 +26,6 @@ public class User implements Serializable {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @JsonProperty(access = Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
 
