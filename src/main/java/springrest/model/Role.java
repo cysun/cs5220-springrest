@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 @Entity
 @Table(name = "roles")
 public class Role implements Serializable {
@@ -23,6 +25,13 @@ public class Role implements Serializable {
 
     public Role()
     {
+    }
+
+    @JsonCreator
+    public Role( Long id )
+    {
+        this.id = id;
+        this.name = "";
     }
 
     public Long getId()
