@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import springrest.model.User;
 
-@Test(groups = "UserDaoTest")
+@Test
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class UserDaoTest extends AbstractTransactionalTestNGSpringContextTests {
 

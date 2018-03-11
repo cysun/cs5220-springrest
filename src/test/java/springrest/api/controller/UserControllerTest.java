@@ -1,8 +1,10 @@
 package springrest.api.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.hamcrest.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
@@ -13,14 +15,11 @@ import org.springframework.web.context.WebApplicationContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
 @Test
 @WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:springrest-servlet.xml",
     "classpath:applicationContext.xml" })
-class UserControllerTests
-    extends AbstractTransactionalTestNGSpringContextTests {
+class UserControllerTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired
     private WebApplicationContext wac;
@@ -47,6 +46,15 @@ class UserControllerTests
         this.mockMvc.perform( get( "/users" ) )
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$[0].username" ).value( "admin" ) );
+    }
+
+    @Test
+    void getUsers2() throws Exception
+    {
+        this.mockMvc.perform( get( "/users" ) )
+            .andExpect( status().isOk() )
+            .andExpect( jsonPath( "$.length()" )
+                .value( Matchers.greaterThanOrEqualTo( 2 ) ) );
     }
 
 }
