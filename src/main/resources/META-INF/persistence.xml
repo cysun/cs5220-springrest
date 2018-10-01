@@ -7,8 +7,7 @@
     <persistence-unit name="springrest">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL55Dialect" />
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
         </properties>
     </persistence-unit>
 
