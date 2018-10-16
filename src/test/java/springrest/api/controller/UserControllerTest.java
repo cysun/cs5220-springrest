@@ -1,11 +1,13 @@
 package springrest.api.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.hamcrest.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -55,6 +57,25 @@ class UserControllerTest extends AbstractTransactionalTestNGSpringContextTests {
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$.length()" )
                 .value( Matchers.greaterThanOrEqualTo( 2 ) ) );
+    }
+
+    @Test
+    void addUser() throws Exception
+    {
+        this.mockMvc
+            .perform( post( "/users" ).contentType( "application/json" )
+                .content( "{\"username\":\"john\"}" ) )
+            .andExpect( status().is4xxClientError() );
+    }
+
+    @Test
+    @Rollback(false)
+    void addUser2() throws Exception
+    {
+        this.mockMvc
+            .perform( post( "/users" ).contentType( "application/json" )
+                .content( "{\"username\":\"john\", \"password\": \"abcd\"}" ) )
+            .andExpect( status().is2xxSuccessful() );
     }
 
 }
